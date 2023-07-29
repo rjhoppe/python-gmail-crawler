@@ -49,7 +49,7 @@ def get_email():
     query = 'in:inbox is:unread -category:(promotions OR social)'
     include_spam = False
 
-    max_results = 3
+    max_results = 5
     results = service.users().messages().list(userId='me', includeSpamTrash=include_spam, 
                                               maxResults=max_results, q=query).execute()
     messages = results.get('messages')
@@ -73,7 +73,7 @@ def get_email():
                 if d['name'] == 'From':
                     sender = d['value']
 
-            catchword = 'Steam'
+            catchword = 'Interview'
             if catchword in subject:
                 print('Found a relevant email!')
                 new_dict = {sender: subject}
@@ -127,5 +127,5 @@ send_notification(relevant_emails)
 # Final tasks
 # Doc string the functions
 # Change the trigger word
-# Create requirements.txt
 # Turn into an .exe file
+# Flesh out the README.md file

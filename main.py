@@ -125,9 +125,7 @@ send_notification(relevant_emails)
 
 
 # Final tasks
-# Move MD URL to .env
 # Doc string the functions
 # Change the trigger word
-# Fill out gitignore
 # Create requirements.txt
 # Turn into an .exe file

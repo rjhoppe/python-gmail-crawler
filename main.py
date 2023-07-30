@@ -23,6 +23,10 @@ loops = 0
 # Pulled from Google Python quickstart.py file
 SCOPES = ['https://mail.google.com/']
 
+'''
+Generates a token.json file in your directory from the credentials.json
+file created in the GCP console.
+'''
 def gen_gcp_api():
     
     creds = None
@@ -41,7 +45,9 @@ def gen_gcp_api():
 
 creds = gen_gcp_api()
 
-# Check for new mail every 15 minutes
+'''
+Checks for any unread emails in your Gmail inbox that contain the subject line catchword every 15 minutes.
+'''
 def get_email():
 
     # Call the Gmail API
@@ -64,7 +70,6 @@ def get_email():
         try:
             payload = txt['payload']
             msg_id = msg['id']
-            # print(msg_id)
             headers = payload['headers']
 
             for d in headers:
@@ -80,7 +85,6 @@ def get_email():
                 job_update_dict.update(new_dict)
                 # Mark message as unread after parsed
                 service.users().messages().modify(userId='me', id=msg_id, body={'removeLabelIds': ['UNREAD']}).execute()
-                # print('Marked as unread!')
 
         except:
             print('Something went wrong...')
@@ -100,7 +104,10 @@ def get_email():
 
 relevant_emails = get_email()
 
-
+'''
+If an email contains the catchword, a notification is sent to a MacroDroid webhook URL.
+The webhook URL triggers a macro (on MacroDroid) that sends a notification to my phone / smartwatch.
+'''
 def send_notification(relevant_emails):
         
     print('Sending notification...')
@@ -123,9 +130,5 @@ def send_notification(relevant_emails):
 
 send_notification(relevant_emails)
 
-
 # Final tasks
-# Doc string the functions
-# Change the trigger word
 # Turn into an .exe file
-# Flesh out the README.md file
